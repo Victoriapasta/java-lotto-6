@@ -39,4 +39,8 @@ public class BasicView {
                 .map(s -> Integer.parseInt(s))
                 .collect(Collectors.toList());
     }
+
+    public void showBuyAmount(Integer amount) {
+        outputView.outputBuyAmount(amount);
+    }
 }
