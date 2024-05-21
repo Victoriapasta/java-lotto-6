@@ -1,5 +1,6 @@
 package lotto.view;
 
+import lotto.dto.LottoDto;
 import lotto.utils.validation.inputvalidator.InputValidator;
 import lotto.view.inputview.InputView;
 import lotto.view.outputview.OutputView;
@@ -40,7 +41,15 @@ public class BasicView {
                 .collect(Collectors.toList());
     }
 
+    public Integer getBonusNumber() {
+        return inputView.inputBonusNumber();
+    }
+
     public void showBuyAmount(Integer amount) {
         outputView.outputBuyAmount(amount);
+    }
+
+    public void showLottoNumbers(LottoDto lottoDto) {
+        outputView.outputLotto(lottoDto);
     }
 }

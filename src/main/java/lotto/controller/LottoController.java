@@ -1,7 +1,8 @@
 package lotto.controller;
 
 import camp.nextstep.edu.missionutils.Randoms;
-import lotto.Lotto;
+import lotto.domain.Lotto;
+import lotto.dto.LottoDto;
 import lotto.view.BasicView;
 
 import java.util.ArrayList;
@@ -18,6 +19,12 @@ public class LottoController {
     public void run() {
         Integer amount = basicView.getBuyAmount() / 1000;
         basicView.showBuyAmount(amount);
+        List<Lotto> lottoList = generateLotto(amount);
+        for (Lotto lotto : lottoList) {
+            basicView.showLottoNumbers(LottoDto.toDto(lotto));
+        }
+        basicView.getWinningNumbers();
+
     }
 
     public List<Lotto> generateLotto(Integer amount) {
@@ -27,5 +34,4 @@ public class LottoController {
         }
         return lottoList;
     }
-
 }
