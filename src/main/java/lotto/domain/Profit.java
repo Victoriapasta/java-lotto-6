@@ -18,6 +18,6 @@ public class Profit {
         Long totalReward = result.keySet().stream()
                 .mapToLong(key -> result.get(key) * key.getReward())
                 .sum();
-        return new Profit((double) totalReward / amount);
+        return new Profit(((double) totalReward / amount) * 100);
     }
 }

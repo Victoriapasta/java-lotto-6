@@ -21,7 +21,7 @@ public class LottoController {
     }
 
     public void run() {
-        Integer amount = initBuyAmount() / 1000;
+        Integer amount = initBuyAmount();
         basicView.showBuyAmount(amount);
         List<Lotto> lottoList = initLotto(amount);
         showLottoInfo(lottoList);
@@ -75,7 +75,8 @@ public class LottoController {
 
     public List<Lotto> initLotto(Integer amount) {
         List<Lotto> lottoList = new ArrayList<>();
-        for (int i = 0; i < amount; i++) {
+        Integer ticket = amount / 1000;
+        for (int i = 0; i < ticket; i++) {
             lottoList.add(new Lotto(Randoms.pickUniqueNumbersInRange(1, 45, 6)));
         }
         return lottoList;

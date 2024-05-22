@@ -2,9 +2,6 @@ package lotto.utils.validation.inputvalidator;
 
 import lotto.utils.exception.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class InputValidator {
 
     public static void buyAmountValidator(Integer amount) {
