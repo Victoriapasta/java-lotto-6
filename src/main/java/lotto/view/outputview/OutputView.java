@@ -1,12 +1,16 @@
 package lotto.view.outputview;
 
+import lotto.domain.Lotto;
+import lotto.domain.PrizeRank;
 import lotto.dto.LottoDto;
 
 import java.util.List;
+import java.util.Map;
 
 public class OutputView {
 
     public void outputBuyAmount(Integer amount) {
+        System.out.println();
         System.out.println(amount + "개를 구매했습니다.");
     }
 
@@ -24,14 +28,14 @@ public class OutputView {
         System.out.println(sb);
     }
 
-    public void outputPrizedRank() {
+    public void outputPrizedRank(Map<PrizeRank, Integer> result) {
         System.out.println();
         System.out.println("당첨 통계");
         System.out.println("---");
-        System.out.println("3개 일치 (5,000원) - " + "개");
-        System.out.println("4개 일치 (50,000원) - " + "개");
-        System.out.println("5개 일치 (1,500,000원) - " + "개");
-        System.out.println("5개 일치, 보너스 볼 일치 (30,000,000원) - " + "개");
-        System.out.println("6개 일치 (2,000,000,000원) - " + "개");
+        System.out.println("3개 일치 (5,000원) - " + result.getOrDefault(PrizeRank.FIFTH, 0) + "개");
+        System.out.println("4개 일치 (50,000원) - " + result.getOrDefault(PrizeRank.FOURTH, 0) + "개");
+        System.out.println("5개 일치 (1,500,000원) - " + result.getOrDefault(PrizeRank.THIRD, 0) + "개");
+        System.out.println("5개 일치, 보너스 볼 일치 (30,000,000원) - " + result.getOrDefault(PrizeRank.SECOND, 0) + "개");
+        System.out.println("6개 일치 (2,000,000,000원) - " + result.getOrDefault(PrizeRank.FIRST, 0) + "개");
     }
 }

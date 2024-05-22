@@ -2,10 +2,6 @@ package lotto.view.inputview;
 
 import camp.nextstep.edu.missionutils.Console;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class InputView {
 
     public String inputBuyAmount() {
@@ -14,11 +10,13 @@ public class InputView {
     }
 
     public String inputWinningNumber() {
+        System.out.println();
         System.out.println("당첨 번호를 입력해 주세요.");
         return Console.readLine();
     }
 
     public Integer inputBonusNumber() {
+        System.out.println();
         System.out.println("보너스 번호를 입력해 주세요.");
         return Integer.parseInt(Console.readLine());
     }

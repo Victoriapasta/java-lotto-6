@@ -1,5 +1,7 @@
 package lotto.view;
 
+import lotto.domain.Lotto;
+import lotto.domain.PrizeRank;
 import lotto.dto.LottoDto;
 import lotto.utils.validation.inputvalidator.InputValidator;
 import lotto.view.inputview.InputView;
@@ -7,6 +9,7 @@ import lotto.view.outputview.OutputView;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class BasicView {
@@ -53,7 +56,7 @@ public class BasicView {
         outputView.outputLotto(lottoDto);
     }
 
-    public void showResult() {
-        outputView.outputPrizedRank();
+    public void showResult(Map<PrizeRank, Integer> result) {
+        outputView.outputPrizedRank(result);
     }
 }
