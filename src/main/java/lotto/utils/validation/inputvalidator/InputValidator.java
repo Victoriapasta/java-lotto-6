@@ -18,7 +18,6 @@ public class InputValidator {
             throw new EmptyInputException();
         }
         String[] numbers = inputNumbers.split(",");
-        Set<String> set = new HashSet<>();
         if (numbers.length > 6) {
             throw new OverSizeLottoException();
         }
@@ -27,9 +26,6 @@ public class InputValidator {
                 Integer.valueOf(number);
             } catch (NotNumericException e) {
                 throw new NotNumericException();
-            }
-            if (!set.add(number)) {
-                throw new DuplicatedWinningNumberException();
             }
         }
     }

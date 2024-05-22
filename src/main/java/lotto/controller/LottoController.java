@@ -24,7 +24,7 @@ public class LottoController {
         basicView.showBuyAmount(amount);
         List<Lotto> lottoList = initLotto(amount);
         showLottoInfo(lottoList);
-        List<Integer> winningNumbers = initWinningLottoNumbers();
+        Lotto winningNumbers = initWinningLottoNumbers();
         BonusNumber bonusNumber = initBonusNumber();
         basicView.showResult(calculatePrizeRank(lottoList, winningNumbers, bonusNumber));
     }
@@ -42,15 +42,15 @@ public class LottoController {
         }
     }
 
-    public List<Integer> initWinningLottoNumbers() {
+    public Lotto initWinningLottoNumbers() {
         while (true) {
             try {
                 String winningNumbers = basicView.getWinningNumbers();
                 InputValidator.setWinningNumberValidator(winningNumbers);
-                return Arrays.stream(winningNumbers
+                return new Lotto(Arrays.stream(winningNumbers
                                 .split(","))
                         .map(s -> Integer.parseInt(s))
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toList()));
             } catch (IllegalArgumentException e) {
                 basicView.showErrorMessage(e.getMessage());
             }
@@ -83,7 +83,7 @@ public class LottoController {
         }
     }
 
-    public Map<PrizeRank, Integer> calculatePrizeRank(List<Lotto> buyLotto, List<Integer> winningNumbers, BonusNumber bonusNumber) {
+    public Map<PrizeRank, Integer> calculatePrizeRank(List<Lotto> buyLotto, Lotto winningNumbers, BonusNumber bonusNumber) {
         return Lotto.calculatePrizeRank(buyLotto, winningNumbers, bonusNumber);
     }
 }
