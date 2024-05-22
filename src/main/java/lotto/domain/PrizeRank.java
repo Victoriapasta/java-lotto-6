@@ -2,19 +2,25 @@ package lotto.domain;
 
 public enum PrizeRank {
 
-    FIRST(6, false),
-    SECOND(5, true),
-    THIRD(5, false),
-    FOURTH(4, false),
-    FIFTH(3, false),
-    OTHERS(0, false);
+    FIRST(6, false, 2000000000L),
+    SECOND(5, true, 30000000L),
+    THIRD(5, false, 1500000L),
+    FOURTH(4, false, 50000L),
+    FIFTH(3, false, 5000L),
+    OTHERS(0, false, 0L);
 
     private final Integer matchedNumber;
     private final boolean matchedBonusNumber;
+    private final Long reward;
 
-    PrizeRank(Integer matchedNumber, boolean matchedBonusNumber) {
+    PrizeRank(Integer matchedNumber, boolean matchedBonusNumber, Long reward) {
         this.matchedNumber = matchedNumber;
         this.matchedBonusNumber = matchedBonusNumber;
+        this.reward = reward;
+    }
+
+    public Long getReward() {
+        return reward;
     }
 
     public static PrizeRank setRank(Integer matchedNumber, boolean matchedBonusNumber) {

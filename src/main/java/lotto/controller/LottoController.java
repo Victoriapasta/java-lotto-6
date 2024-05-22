@@ -4,6 +4,7 @@ import camp.nextstep.edu.missionutils.Randoms;
 import lotto.domain.BonusNumber;
 import lotto.domain.Lotto;
 import lotto.domain.PrizeRank;
+import lotto.domain.Profit;
 import lotto.dto.LottoDto;
 import lotto.utils.validation.inputvalidator.InputValidator;
 import lotto.view.BasicView;
@@ -20,13 +21,16 @@ public class LottoController {
     }
 
     public void run() {
-        Integer amount = initBuyAmount();
+        Integer amount = initBuyAmount() / 1000;
         basicView.showBuyAmount(amount);
         List<Lotto> lottoList = initLotto(amount);
         showLottoInfo(lottoList);
         Lotto winningNumbers = initWinningLottoNumbers();
         BonusNumber bonusNumber = initBonusNumber();
-        basicView.showResult(calculatePrizeRank(lottoList, winningNumbers, bonusNumber));
+        Map<PrizeRank, Integer> resultPrize = calculatePrizeRank(lottoList, winningNumbers, bonusNumber);
+        basicView.showResult(resultPrize);
+        Profit profit = initProfit(resultPrize, amount);
+        basicView.showProfitRate(profit.getProfitRate());
     }
 
     public Integer initBuyAmount() {
@@ -85,5 +89,9 @@ public class LottoController {
 
     public Map<PrizeRank, Integer> calculatePrizeRank(List<Lotto> buyLotto, Lotto winningNumbers, BonusNumber bonusNumber) {
         return Lotto.calculatePrizeRank(buyLotto, winningNumbers, bonusNumber);
+    }
+
+    public Profit initProfit(Map<PrizeRank, Integer> result, Integer amount) {
+        return Profit.calculateProfit(result, amount);
     }
 }

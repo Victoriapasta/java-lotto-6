@@ -39,6 +39,10 @@ public class OutputView {
         System.out.println("6개 일치 (2,000,000,000원) - " + result.getOrDefault(PrizeRank.FIRST, 0) + "개");
     }
 
+    public void outputProfitRate(Double profitRate) {
+        System.out.println(String.format("총 수익률은 %,.1f%%입니다.", profitRate));
+    }
+
     public void printErrorMessage(String message) {
         System.out.println("[ERROR] " + message);
     }

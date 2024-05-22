@@ -44,4 +44,8 @@ public class BasicView {
     public void showErrorMessage(String message) {
         outputView.printErrorMessage(message);
     }
+
+    public void showProfitRate(Double profitRate) {
+        outputView.outputProfitRate(profitRate);
+    }
 }
