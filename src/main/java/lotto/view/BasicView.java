@@ -1,16 +1,11 @@
 package lotto.view;
 
-import lotto.domain.Lotto;
 import lotto.domain.PrizeRank;
 import lotto.dto.LottoDto;
-import lotto.utils.validation.inputvalidator.InputValidator;
 import lotto.view.inputview.InputView;
 import lotto.view.outputview.OutputView;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class BasicView {
 
@@ -22,29 +17,15 @@ public class BasicView {
         this.outputView = outputView;
     }
 
-    public Integer getBuyAmount() {
-        while (true) {
-            String amount = inputView.inputBuyAmount();
-            try {
-                Integer intAmount = Integer.valueOf(amount);
-                InputValidator.buyAmountValidator(Integer.valueOf(intAmount));
-                return intAmount;
-            } catch (IllegalArgumentException e) {
-                System.out.println("[ERROR] 구입금액은 1000원 단위의 정수여야 합니다.");
-            }
-        }
+    public String getBuyAmount() {
+        return inputView.inputBuyAmount();
     }
 
-    public List<Integer> getWinningNumbers() {
-        String winningNumbers = inputView.inputWinningNumber();
-        InputValidator.setWinningNumberValidator(winningNumbers);
-        return Arrays.stream(winningNumbers
-                        .split(","))
-                .map(s -> Integer.parseInt(s))
-                .collect(Collectors.toList());
+    public String getWinningNumbers() {
+        return inputView.inputWinningNumber();
     }
 
-    public Integer getBonusNumber() {
+    public String getBonusNumber() {
         return inputView.inputBonusNumber();
     }
 
@@ -58,5 +39,9 @@ public class BasicView {
 
     public void showResult(Map<PrizeRank, Integer> result) {
         outputView.outputPrizedRank(result);
+    }
+
+    public void showErrorMessage(String message) {
+        outputView.printErrorMessage(message);
     }
 }

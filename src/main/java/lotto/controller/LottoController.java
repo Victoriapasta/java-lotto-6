@@ -5,12 +5,11 @@ import lotto.domain.BonusNumber;
 import lotto.domain.Lotto;
 import lotto.domain.PrizeRank;
 import lotto.dto.LottoDto;
+import lotto.utils.validation.inputvalidator.InputValidator;
 import lotto.view.BasicView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class LottoController {
 
@@ -21,16 +20,56 @@ public class LottoController {
     }
 
     public void run() {
-        Integer amount = basicView.getBuyAmount() / 1000;
+        Integer amount = initBuyAmount();
         basicView.showBuyAmount(amount);
-        List<Lotto> lottoList = generateLotto(amount);
+        List<Lotto> lottoList = initLotto(amount);
         showLottoInfo(lottoList);
-        List<Integer> winningNumbers = basicView.getWinningNumbers();
-        BonusNumber bonusNumber = new BonusNumber(basicView.getBonusNumber());
+        List<Integer> winningNumbers = initWinningLottoNumbers();
+        BonusNumber bonusNumber = initBonusNumber();
         basicView.showResult(calculatePrizeRank(lottoList, winningNumbers, bonusNumber));
     }
 
-    public List<Lotto> generateLotto(Integer amount) {
+    public Integer initBuyAmount() {
+        while (true) {
+            try {
+                String amount = basicView.getBuyAmount();
+                Integer intAmount = Integer.valueOf(amount);
+                InputValidator.buyAmountValidator(Integer.valueOf(intAmount));
+                return intAmount;
+            } catch (IllegalArgumentException e) {
+                basicView.showErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    public List<Integer> initWinningLottoNumbers() {
+        while (true) {
+            try {
+                String winningNumbers = basicView.getWinningNumbers();
+                InputValidator.setWinningNumberValidator(winningNumbers);
+                return Arrays.stream(winningNumbers
+                                .split(","))
+                        .map(s -> Integer.parseInt(s))
+                        .collect(Collectors.toList());
+            } catch (IllegalArgumentException e) {
+                basicView.showErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    public BonusNumber initBonusNumber() {
+        while (true) {
+            try {
+                String bonusNumber = basicView.getBonusNumber();
+                InputValidator.setBonusNumberValidator(bonusNumber);
+                return new BonusNumber(Integer.parseInt(bonusNumber));
+            } catch (IllegalArgumentException e) {
+                basicView.showErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    public List<Lotto> initLotto(Integer amount) {
         List<Lotto> lottoList = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
             lottoList.add(new Lotto(Randoms.pickUniqueNumbersInRange(1, 45, 6)));

@@ -38,4 +38,8 @@ public class OutputView {
         System.out.println("5개 일치, 보너스 볼 일치 (30,000,000원) - " + result.getOrDefault(PrizeRank.SECOND, 0) + "개");
         System.out.println("6개 일치 (2,000,000,000원) - " + result.getOrDefault(PrizeRank.FIRST, 0) + "개");
     }
+
+    public void printErrorMessage(String message) {
+        System.out.println("[ERROR] " + message);
+    }
 }
