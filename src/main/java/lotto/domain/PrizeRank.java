@@ -17,7 +17,7 @@ public enum PrizeRank {
         this.matchedBonusNumber = matchedBonusNumber;
     }
 
-    public PrizeRank setRank(Integer matchedNumber, boolean matchedBonusNumber) {
+    public static PrizeRank setRank(Integer matchedNumber, boolean matchedBonusNumber) {
         for (PrizeRank prizeRank : PrizeRank.values()) {
             if (prizeRank.matchedNumber.equals(matchedNumber) && prizeRank.matchedBonusNumber == matchedBonusNumber) {
                 return prizeRank;

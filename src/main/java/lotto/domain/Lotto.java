@@ -22,4 +22,10 @@ public class Lotto {
             throw new IllegalArgumentException();
         }
     }
+
+    public Integer countMatchNumber(List<Integer> winningNumbers) {
+        return (int) numbers.stream()
+                .filter(winningNumbers::contains)
+                .count();
+    }
 }

@@ -1,12 +1,16 @@
 package lotto.controller;
 
 import camp.nextstep.edu.missionutils.Randoms;
+import lotto.domain.BonusNumber;
 import lotto.domain.Lotto;
+import lotto.domain.PrizeRank;
 import lotto.dto.LottoDto;
 import lotto.view.BasicView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LottoController {
 
@@ -20,11 +24,9 @@ public class LottoController {
         Integer amount = basicView.getBuyAmount() / 1000;
         basicView.showBuyAmount(amount);
         List<Lotto> lottoList = generateLotto(amount);
-        for (Lotto lotto : lottoList) {
-            basicView.showLottoNumbers(LottoDto.toDto(lotto));
-        }
-        basicView.getWinningNumbers();
-
+        showLottoInfo(lottoList);
+        List<Integer> winningNumbers = basicView.getWinningNumbers();
+        BonusNumber bonusNumber = new BonusNumber(basicView.getBonusNumber());
     }
 
     public List<Lotto> generateLotto(Integer amount) {
@@ -33,5 +35,24 @@ public class LottoController {
             lottoList.add(new Lotto(Randoms.pickUniqueNumbersInRange(1, 45, 6)));
         }
         return lottoList;
+    }
+
+    public void showLottoInfo(List<Lotto> lottoList) {
+        for (Lotto lotto : lottoList) {
+            basicView.showLottoNumbers(LottoDto.toDto(lotto));
+        }
+    }
+
+    public Map<Lotto, PrizeRank> calculatePrizeRank(List<Lotto> buyLotto, List<Integer> winningNumbers, Integer bonusNumber) {
+        Map<Lotto, PrizeRank> prizeRank = new HashMap<>();
+
+        for (Lotto lotto : buyLotto) {
+            Integer matchedCount = lotto.countMatchNumber(winningNumbers);
+            boolean matchedBonusNumber = LottoDto.toDto(lotto)
+                    .getNumberDto()
+                    .contains(bonusNumber);
+            prizeRank.put(lotto, PrizeRank.setRank(matchedCount, matchedBonusNumber));
+        }
+        return prizeRank;
     }
 }
