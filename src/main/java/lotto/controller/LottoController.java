@@ -27,6 +27,8 @@ public class LottoController {
         showLottoInfo(lottoList);
         List<Integer> winningNumbers = basicView.getWinningNumbers();
         BonusNumber bonusNumber = new BonusNumber(basicView.getBonusNumber());
+        Map<Lotto, PrizeRank> resultPrizeRank = calculatePrizeRank(lottoList, winningNumbers, bonusNumber);
+        basicView.showResult();
     }
 
     public List<Lotto> generateLotto(Integer amount) {
@@ -43,14 +45,14 @@ public class LottoController {
         }
     }
 
-    public Map<Lotto, PrizeRank> calculatePrizeRank(List<Lotto> buyLotto, List<Integer> winningNumbers, Integer bonusNumber) {
+    public Map<Lotto, PrizeRank> calculatePrizeRank(List<Lotto> buyLotto, List<Integer> winningNumbers, BonusNumber bonusNumber) {
         Map<Lotto, PrizeRank> prizeRank = new HashMap<>();
 
         for (Lotto lotto : buyLotto) {
             Integer matchedCount = lotto.countMatchNumber(winningNumbers);
             boolean matchedBonusNumber = LottoDto.toDto(lotto)
                     .getNumberDto()
-                    .contains(bonusNumber);
+                    .contains(bonusNumber.getBonusNumber());
             prizeRank.put(lotto, PrizeRank.setRank(matchedCount, matchedBonusNumber));
         }
         return prizeRank;

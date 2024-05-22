@@ -52,4 +52,8 @@ public class BasicView {
     public void showLottoNumbers(LottoDto lottoDto) {
         outputView.outputLotto(lottoDto);
     }
+
+    public void showResult() {
+        outputView.outputPrizedRank();
+    }
 }
