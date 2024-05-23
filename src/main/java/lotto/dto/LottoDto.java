@@ -2,6 +2,9 @@ package lotto.dto;
 
 import lotto.domain.Lotto;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class LottoDto {
@@ -13,10 +16,12 @@ public class LottoDto {
     }
 
     public List<Integer> getNumberDto() {
-        return lottoNumberDto;
+        return Collections.unmodifiableList(lottoNumberDto);
     }
 
     public static LottoDto toDto(Lotto lotto) {
-        return new LottoDto(lotto.getNumbers());
+        List<Integer> numbers = new ArrayList<>(lotto.getNumbers());
+        numbers.sort(Comparator.naturalOrder());
+        return new LottoDto(Collections.unmodifiableList(numbers));
     }
 }

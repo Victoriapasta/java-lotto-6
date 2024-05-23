@@ -17,7 +17,6 @@ public class OutputView {
 
     public void outputLotto(LottoDto lottoDto) {
         List<Integer> numberDto = lottoDto.getNumberDto();
-        numberDto.sort(Comparator.naturalOrder());
         StringBuilder sb = new StringBuilder();
         sb.append("[");
         for (int i = 0; i < numberDto.size(); i++) {
