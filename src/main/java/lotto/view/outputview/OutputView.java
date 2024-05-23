@@ -4,18 +4,20 @@ import lotto.domain.Lotto;
 import lotto.domain.PrizeRank;
 import lotto.dto.LottoDto;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
 public class OutputView {
 
-    public void outputBuyAmount(Integer amount) {
+    public void outputBuyAmount(Integer ticket) {
         System.out.println();
-        System.out.println(amount + "개를 구매했습니다.");
+        System.out.println(ticket + "개를 구매했습니다.");
     }
 
     public void outputLotto(LottoDto lottoDto) {
         List<Integer> numberDto = lottoDto.getNumberDto();
+        numberDto.sort(Comparator.naturalOrder());
         StringBuilder sb = new StringBuilder();
         sb.append("[");
         for (int i = 0; i < numberDto.size(); i++) {

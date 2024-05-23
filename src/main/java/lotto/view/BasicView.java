@@ -29,8 +29,8 @@ public class BasicView {
         return inputView.inputBonusNumber();
     }
 
-    public void showBuyAmount(Integer amount) {
-        outputView.outputBuyAmount(amount);
+    public void showBuyAmount(Integer ticket) {
+        outputView.outputBuyAmount(ticket);
     }
 
     public void showLottoNumbers(LottoDto lottoDto) {
